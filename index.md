@@ -1,37 +1,95 @@
-## Welcome to GitHub Pages
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        canvas {
+            border:1px solid #d3d3d3;
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body onload="startGame()">
+<script>
 
-You can use the [editor on GitHub](https://github.com/Patryk-Korczak/Arkanoid/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+    var myGamePiece;
+    var myObstacle;
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+    function startGame() {
+        myGamePiece = new component(100, 20, "green", 190, 250);
+        myObstacle  = new component(20, 20, "red", 230, 125);
+        myGameArea.start();
+    }
 
-### Markdown
+    var myGameArea = {
+        canvas : document.createElement("canvas"),
+        start : function() {
+            this.canvas.width = 480;
+            this.canvas.height = 270;
+            this.context = this.canvas.getContext("2d");
+            document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+            this.interval = setInterval(updateGameArea, 20);
+            window.addEventListener('keydown', function (e) {
+                e.preventDefault();
+                myGameArea.keys = (myGameArea.keys || []);
+                myGameArea.keys[e.keyCode] = (e.type == "keydown");
+            })
+            window.addEventListener('keyup', function (e) {
+                myGameArea.keys[e.keyCode] = (e.type == "keydown");
+            })
+        },
+        clear : function() {
+            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
+    }
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+    function component(width, height, color, x, y, collisions) {
+        this.width = width;
+        this.height = height;
+        this.speedX = 0;
+        this.speedY = 0;
+        this.collisions =
+        this.x = x;
+        this.y = y;
+        this.update = function() {
+            ctx = myGameArea.context;
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+        this.newPos = function() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+        }
 
-```markdown
-Syntax highlighted code block
+    }
 
-# Header 1
-## Header 2
-### Header 3
+    function updateGameArea() {
+        myGameArea.clear();
+        myObstacle.y += 1;
+        myObstacle.x += 1
+        if (myGameArea.keys && myGameArea.keys[37]) {moveleft(); }
+        if (myGameArea.keys && myGameArea.keys[39]) {moveright(); }
+        myObstacle.update();
+        myGamePiece.newPos();
+        myGamePiece.update();
+    }
 
-- Bulleted
-- List
+    function moveleft() {
+        myGamePiece.speedX = -1;
+    }
 
-1. Numbered
-2. List
+    function moveright() {
+        myGamePiece.speedX = 1;
+    }
 
-**Bold** and _Italic_ and `Code` text
+    function clearmove() {
+        myGamePiece.speedX = 0;
+    }
+</script>
+<div style="text-align:center;width:480px;">
+    <button onmousedown="moveleft()" onmouseup="clearmove()" ontouchstart="moveleft()">LEFT</button>
+    <button onmousedown="moveright()" onmouseup="clearmove()" ontouchstart="moveright()">RIGHT</button><br><br>
+</div>
+</body>
+</html>
 
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Patryk-Korczak/Arkanoid/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
