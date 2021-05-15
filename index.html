@@ -9,6 +9,20 @@
             display: block;
             margin: 0 auto;
         }
+
+         .movement {
+             display: block;
+             margin: 0 auto;
+             text-align: center;
+         }
+
+        .gameControl {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+
     </style>
 </head>
 <body onload="loadGame()">
@@ -139,10 +153,15 @@
         myPlatform.speedX = 2;
     }
 
+    function stopmove() {
+        myPlatform.speedX = 0;
+    }
+
     function updateGameArea() {
         if(myBall.crashWith(myBottom)) {
             myGameArea.stop();
         }
+
 
         if (myGameArea.key && myGameArea.key == 37) {myPlatform.speedX = -2; }
         if (myGameArea.key && myGameArea.key == 39) {myPlatform.speedX = 2; }
@@ -161,12 +180,21 @@
         myBottom.update();
         myBall.newPos();
         myBall.update();
+
+        if(myPlatform.crashWith(myLeftWall)) {
+            myPlatform.speedX = 0;
+        }
+
+        if(myPlatform.crashWith(myRightWall)) {
+            myPlatform.speed
+        }
+
     }
 
 </script>
 <div class="movement">
-<button id="left" onclick="moveleft()">LEFT</button>
-<button id="right" onclick="moveright()">RIGHT</button>
+    <button id="left" onmousedown="moveleft()" onmouseup="stopmove()" ontouchstart="moveleft()">LEFT</button>
+    <button id="right" onmousedown="moveright()" onmouseup="stopmove()" ontouchstart="moveright()">RIGHT</button>
 </div>
 
 <div class="gameControl">
@@ -174,22 +202,8 @@
     <button id="stop" onclick="stop()">STOP</button>
 </div>
 
-<style>
-    .movement {
-        display: block;
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    .gameControl {
-        display: block;
-        margin: 0 auto;
-        text-align: center;
-    }
-</style>
 
 
 
 </body>
 </html>
-
