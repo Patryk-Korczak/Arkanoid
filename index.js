@@ -54,6 +54,8 @@ function updateGameArea() {
     } else {
         myGameArea.clear()
         drawBackground();
+        showTime();
+        showScore();
         this.checkPlatformClipping();
         this.platformHorizontal.newPosition();
         this.platformHorizontal.update();
@@ -219,6 +221,7 @@ function activateVerticalPlatform() {
 function showScore() {
     let canvas = myGameArea.canvas;
     let ctx = canvas.getContext("2d");
+    ctx.fillStyle = "green";
     ctx.font = "14px Arial";
     ctx.fillText("Score: " + score, 550, 15);
 }
@@ -227,6 +230,7 @@ function showTime() {
     let showTimeCurrent = Math.floor(time/50);
     let canvas = myGameArea.canvas;
     let ctx = canvas.getContext("2d");
+    ctx.fillStyle = "green";
     ctx.font = "14px Arial";
     ctx.fillText("Time: " + showTimeCurrent, 550, 30);
 }
