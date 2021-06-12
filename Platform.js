@@ -17,9 +17,11 @@ class Platform {
     }
 
     update() {
-        let ctx = myGameArea.context;
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        let canvas = myGameArea.canvas;
+        let ctx = canvas.getContext("2d");
+        let img = new Image();
+        img.src = 'paddle.bmp';
+        ctx.drawImage(img, this.x, this.y);
     }
 
 

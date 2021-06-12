@@ -20,11 +20,11 @@ class GameBall {
     }
 
     update() {
-        this.ctx = myGameArea.context;
-        this.ctx.fillStyle = this.color;
-        this.ctx.beginPath();
-        this.ctx.arc(this.x,this.y,this.radius,0,2*Math.PI);
-        this.ctx.fill();
+        let canvas = myGameArea.canvas;
+        let ctx = canvas.getContext("2d");
+        let img = new Image();
+        img.src = 'ball.bmp';
+        ctx.drawImage(img, this.x, this.y);
 
     }
 
@@ -36,11 +36,11 @@ class GameBall {
 
     leftWallCollision(verticalPlatformAlive){
         if(verticalPlatformAlive) {
-            if(this.x <= 10) {
+            if(this.x <= 8) {
                 return true; //ball out of bounds
             }
         } else {
-            if(this.x <= 10) {
+            if(this.x <= 8) {
             this.speedX*= -1;
             return false;
             }
@@ -49,18 +49,13 @@ class GameBall {
     }
 
     rightWallCollision() {
-        if(this.x >= 590) {
+        if(this.x >= 632) {
             this.speedX *= -1;
         }
     }
 
     bottomWallCollision(){
-        //todo Death screen
-        if(this.y >= 390) {
-            return true;
-        }
-
-        return false;
+        return this.y >= 451;
     }
 
     verticalPlatformCollision(x, y, height) {
