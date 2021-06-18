@@ -21,7 +21,7 @@ class Platform {
         let ctx = canvas.getContext("2d");
         let img = new Image();
         img.src = 'paddle.bmp';
-        ctx.drawImage(img, this.x, this.y);
+        ctx.drawImage(img, this.x, this.y, this.width, this.height);
     }
 
 

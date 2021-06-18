@@ -4,28 +4,45 @@
     <style>
         canvas {
             border: 5px black;
-            align-self: center;
             height: 480px;
             width: 640px;
             background-color: darkgray;
         }
-        body {
-            text-align:center;
-        }
+
     </style>
+    <link rel="stylesheet" href="index.css">
     <title>Arkanoid</title>
 </head>
-<body>
-<div id="temp">
-    <canvas id="hideThis"></canvas>
+<body onload="getScores()">
+<div class="row">
+<div id="leaderboard" class="column left">
+    <h1>LEADERBOARD</h1>
 </div>
-<br>
-<button id="startButton" onclick="gameStart()">START</button>
-<button id="pauseButton" onclick="gamePause()">PAUSE</button>
-<button id="verticalPlatformButton" onclick="activateVerticalPlatform()">Vertical platform: OFF</button>
+
+<div id="temp" class="column middle">
+
+    <button id="startButton" onclick="gameStart()">START</button>
+    <button id="pauseButton" onclick="gamePause()">PAUSE</button>
+    <button id="verticalPlatformButton" onclick="activateVerticalPlatform()">Vertical platform: OFF</button>
+    <button id="gameTypeButton" onclick="changeGameType()">Game type: Pushing down</button>
+    <br>
+    <br>
+    <canvas id="hideThis"></canvas>
+
+</div>
+
+<div class="column right">
+    <h1>LOCAL SCORES</h1>
+</div>
+
+</div>
 </body>
 <script type="text/javascript" src="index.js"></script>
 <script type="text/javascript" src="Platform.js"></script>
 <script type="text/javascript" src="GameBall.js"></script>
+<script type="text/javascript" src="Brick.js"></script>
+<script type="text/javascript" src="Boost.js"></script>
+<script type="text/javascript" src="downloadAndSortScores.js"></script>
+
 
 </html>
