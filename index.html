@@ -13,10 +13,21 @@
     <link rel="stylesheet" href="index.css">
     <title>Arkanoid</title>
 </head>
-<body onload="getScores()">
+<body onload="getScores(); getLocalRecords();">
 <div class="row">
 <div id="leaderboard" class="column left">
     <h1>LEADERBOARD</h1>
+    <p id="top0"></p>
+    <p id="top1"></p>
+    <p id="top2"></p>
+    <p id="top3"></p>
+    <p id="top4"></p>
+    <p id="top5"></p>
+    <p id="top6"></p>
+    <p id="top7"></p>
+    <p id="top8"></p>
+    <p id="top9"></p>
+
 </div>
 
 <div id="temp" class="column middle">
@@ -32,7 +43,50 @@
 </div>
 
 <div class="column right">
+    <div id="login">
+        <h2>Log in</h2>
+        <label>
+            <input id="loginValue" type="text" placeholder="Login">
+        </label>
+        <br>
+        <label>
+            <input id="passwordValue" type="password" placeholder="Password">
+        </label>
+        <br>
+        <button id="loginButton" onclick="loginUser()">LOGIN</button>
+        <br>
+        <p id="loginResponse"></p>
+    </div>
+
+    <div id="register">
+        <h2>Register</h2>
+        <label>
+            <input id="registerValue" type="text" placeholder="new username"/>
+        </label>
+        <br>
+        <label>
+            <input id="registerPasswordValue" type="text" placeholder="new password"/>
+        </label>
+        <br>
+        <button id="registerButton" onclick="registerUser()">REGISTER</button>
+        <br>
+        <p id="registerResponse"></p>
+
+    </div>
     <h1>LOCAL SCORES</h1>
+    <p id="local0"></p>
+    <p id="local1"></p>
+    <p id="local2"></p>
+    <p id="local3"></p>
+    <p id="local4"></p>
+    <p id="local5"></p>
+    <p id="local6"></p>
+    <p id="local7"></p>
+    <p id="local8"></p>
+    <p id="local9"></p>
+
+    <br>
+    <button id="uploadToGlobal" onclick="">UPLOAD HIGHEST SCORE TO GLOBAL LEADERBOARD</button>
 </div>
 
 </div>
@@ -42,7 +96,9 @@
 <script type="text/javascript" src="GameBall.js"></script>
 <script type="text/javascript" src="Brick.js"></script>
 <script type="text/javascript" src="Boost.js"></script>
-<script type="text/javascript" src="downloadAndSortScores.js"></script>
+<script type="text/javascript" src="localDB.js"></script>
+<script type="text/javascript" src="scoreEntry.js"></script>
+
 
 
 </html>

@@ -81,7 +81,7 @@ class GameBall {
 
     verticalPlatformCollision(x, y, height) {
         if(this.x - this.radius < x && this.y >= y && this.y <= y+height){
-
+            this.speedX*=-1;
         }
     }
 

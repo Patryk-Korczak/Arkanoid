@@ -111,6 +111,14 @@ function updateGameArea() {
                 this.balls[i].newPosition();
                 this.balls[i].update();
                 }
+
+            // for (let j =0; j < this.balls.length; j++) {
+            //     if(i===j) {
+            //         //nothing
+            //     } else {
+            //         ballWithBallCollision(this.balls[i], this.balls[j]);
+            //     }
+            // }
             }
 
         if(gameType === 0) {
@@ -139,6 +147,7 @@ function updateGameArea() {
             let ctx = canvas.getContext("2d");
             ctx.font = "30px Arial";
             ctx.fillText("You lost!", 220, 50);
+            saveToLocalDB();
         }
 
         time++;
@@ -147,11 +156,19 @@ function updateGameArea() {
 }
 
 function verticalMoveUp() {
-    platformVertical.speedY = 5;
+    if(isBoostActive(4)) {
+        platformVertical.speedY = -5;
+    } else {
+        platformVertical.speedY = 5;
+    }
 }
 
 function verticalMoveDown() {
-    platformVertical.speedY = -5;
+    if(isBoostActive(4)) {
+        platformVertical.speedY = 5;
+    } else {
+        platformVertical.speedY = -5;
+    }
 }
 
 function horizontalMoveRight() {
@@ -453,7 +470,14 @@ function collisionBrick(ball, brick) {
 }
 
 function ballWithBallCollision(ballA, ballB) {
-    //todo implement this
+    if((Math.abs(ballA.x- ballB.x) + Math.abs(ballA.y - ballB.y)) <= 16) {
+        let tempX = ballA.speedX;
+        let tempY = ballA.speedY;
+        ballA.speedX = ballB.speedX;
+        ballA.speedY = ballB.speedY;
+        ballB.speedX = tempX;
+        ballB.speedY = tempY;
+    }
 }
 
 function addScore() {
@@ -485,9 +509,6 @@ function adjustPlatformWidth() {
     }
 }
 
-function getScores() {
-    let worker = new Worker('downloadAndSortScores.js');
-}
 
 
 

@@ -1,10 +1,15 @@
-fetch('http://uczelnia.secdev.pl/Testing/Download_Scores',{ method: 'GET' })
-    .then(response=> response.json())
-        .then(data => {
-            this.topScores = data;
-            this.sortedTopScores = [];
-            for(let i = 0; i < this.topScores.length; i++) {
-                this.sortedTopScores.push(JSON.parse(this.topScores[i].scores));
-            }
+var parameters = {}
+location.search.slice(1).split("&").forEach( function(key_value) { var kv = key_value.split("="); parameters[kv[0]] = kv[1]; })
 
-        });
+var link = parameters['link'];
+
+
+function getScores2() {
+    fetch(link).then(response => response.json()).then(data => postMessage(data));
+}
+
+getScores2();
+
+
+
+
