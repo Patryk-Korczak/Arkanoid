@@ -1,5 +1,5 @@
 var link = location.search.slice(13);
-var append = "http://";
+var append = "https://";
 var fullLink = String(append + link);
 
 function registerUser() {

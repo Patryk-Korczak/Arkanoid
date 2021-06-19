@@ -14,7 +14,7 @@ var loggedIn = false;
 
 
 function getScores() {
-    worker = new Worker("downloadAndSortScores.js?link=http://uczelnia.secdev.pl/Testing/Download_Scores");
+    worker = new Worker("downloadAndSortScores.js?link=https://uczelnia.secdev.pl/Testing/Download_Scores");
     worker.onmessage = function(event) {
         for (let i = 0; i < event.data.length; i++) {
             var temp = JSON.parse(event.data[i].scores);
@@ -36,7 +36,6 @@ function getScores() {
                 document.getElementById(name).innerText = (i+1) + " | " + sortedScores[i].nick + " | " + sortedScores[i].score + " | " + sortedScores[i].date + " | ";
             }
 
-            console.log(sortedScores);
         }
     };
 }
@@ -135,6 +134,8 @@ function loginUser() {
             document.getElementById("loginResponse").innerText = "Logged in!"
             currentUser = document.getElementById('loginValue').value;
             loggedIn = true;
+        } else {
+            document.getElementById("loginResponse").innerText = "Incorrect login/password!";
         }
     }
 
@@ -150,7 +151,6 @@ function uploadHighest() {
 
 
         worker = new Worker("upload.js?link=" + link);
-        console.log(link);
         worker.onmessage = function (event) {
             alert("Saved to global leaderboard!");
             scores =[];
