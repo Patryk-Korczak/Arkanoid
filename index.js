@@ -19,6 +19,7 @@ let platformVertical;
 platformHorizontalWidthBase = 128;
 platformHorizontalWidthWide = Math.floor(platformHorizontalWidthBase * 1.2);
 platformHorizontalWidthNarrow = Math.floor(platformHorizontalWidthBase * 0.8);
+let AI = false;
 
 DOWNLOAD_SCORES = 'http://uczelnia.secdev.pl/Testing/Download_Scores';
 topScores = [];
@@ -76,9 +77,13 @@ function updateGameArea() {
         drawx2();
         drawx5();
         drawReversed();
+        if(AI) {
+            simpleAI();
+        }
         this.checkPlatformClipping();
         platformHorizontal.newPosition();
         platformHorizontal.update();
+
         if(verticalPlatformActive) {
             platformVertical.newPosition();
             platformVertical.update();
@@ -141,13 +146,17 @@ function updateGameArea() {
             this.boosts[i].collisionWithPlatformHorizontal();
         }
 
+
+
         if(!ballsAlive()) {
             gameLost = true;
             let canvas = myGameArea.canvas;
             let ctx = canvas.getContext("2d");
             ctx.font = "30px Arial";
             ctx.fillText("You lost!", 220, 50);
-            saveToLocalDB();
+            if(!AI) {
+                saveToLocalDB();
+            }
         }
 
         time++;
@@ -506,6 +515,40 @@ function adjustPlatformWidth() {
         platformHorizontal.width = platformHorizontalWidthNarrow;
     } else {
         platformHorizontal.width = platformHorizontalWidthBase;
+    }
+}
+
+function simpleAI() {
+    let i = 0;
+    for(i; i < this.balls.length; i++) {
+        console.log(this.balls.length);
+        if(this.balls[i].alive) {
+            break;
+        }
+    }       // get oldest alive ball;
+
+
+    if(this.balls[i].x < platformHorizontal.x + 0.48 * platformHorizontal.width) {
+        horizontalMoveLeft();   //track left if ball is more on the left than middle of the platform
+    } else if(this.balls[i].x > platformHorizontal.x + platformHorizontal.width - 0.48* platformHorizontal.width) {
+        horizontalMoveRight(); //track left if ball is more on the right than middle of the platform
+    } else if((this.balls[i].x >= platformHorizontal.x + 0.48 * platformHorizontal.width )
+        && this.balls[i].x <= platformHorizontal.x + platformHorizontal.width - 0.48* platformHorizontal.width) {
+        resetMovePlatformHorizontal(); //reset movement if ball is in the middle of the platform
+    }
+
+
+}
+
+function activateAI() {
+    if(!gameStarted) {
+        if(AI === false) {
+            AI = true;
+            let btn = document.getElementById("AIButton").innerText = "Auto Play: ON";
+        } else if (AI === true) {
+            AI = false;
+            let btn = document.getElementById("AIButton").innerText = "Auto Play: OFF";
+        }
     }
 }
 
