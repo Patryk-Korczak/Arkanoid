@@ -22,8 +22,8 @@ platformHorizontalWidthNarrow = Math.floor(platformHorizontalWidthBase * 0.8);
 let AI = false;
 
 DOWNLOAD_SCORES = 'http://uczelnia.secdev.pl/Testing/Download_Scores';
-topScores = [];
-sortedTopScores = [];
+let topScores = [];
+let sortedTopScores = [];
 
 
 
