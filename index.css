@@ -1,18 +1,24 @@
 * {
     box-sizing: border-box;
-    background: navajowhite;
+    overflow-x: hidden;
+    color: white;
 }
 
 /* Create three unequal columns that floats next to each other */
 .column {
-    text-align: center;
+    padding: 15px;
     float: left;
-    padding: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
-
+    text-align: center;
 
 }
+body {
+    background-image: url("back3.jpg");
+    background-size: cover;
+}
 
+table {
+    background: black;
+}
 
 .left, .right {
     width: 25%;
@@ -22,11 +28,23 @@
     width: 50%;
 
 }
-
 /* Clear floats after the columns */
 .row:after {
     content: "";
     display: table;
     clear: both;
 
+}
+
+.left {
+    text-align: center;
+}
+
+.table>thead>tr>th {
+    text-align: center;
+}
+
+.table{
+    background: #212529 !important;
+    color: white !important;
 }

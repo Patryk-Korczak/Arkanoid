@@ -12,93 +12,77 @@
     </style>
     <link rel="stylesheet" href="index.css">
     <title>Arkanoid</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="Platform.js"></script>
+    <script type="text/javascript" src="GameBall.js"></script>
+    <script type="text/javascript" src="Brick.js"></script>
+    <script type="text/javascript" src="Boost.js"></script>
+    <script type="text/javascript" src="localDB.js"></script>
+    <script type="text/javascript" src="scoreEntry.js"></script>
 </head>
-<body onload="getScores(); getLocalRecords();">
+<body>
 <div class="row">
 <div id="leaderboard" class="column left">
-    <h1>LEADERBOARD</h1>
-    <p id="top0"></p>
-    <p id="top1"></p>
-    <p id="top2"></p>
-    <p id="top3"></p>
-    <p id="top4"></p>
-    <p id="top5"></p>
-    <p id="top6"></p>
-    <p id="top7"></p>
-    <p id="top8"></p>
-    <p id="top9"></p>
+<h2>LEADERBOARD</h2>
+    <div id="leaderboardTable">
 
+    </div>
 </div>
 
 <div id="temp" class="column middle">
 
-    <button id="startButton" onclick="gameStart()">START</button>
-    <button id="pauseButton" onclick="gamePause()">PAUSE</button>
-    <button id="verticalPlatformButton" onclick="activateVerticalPlatform()">Vertical platform: OFF</button>
-    <button id="gameTypeButton" onclick="changeGameType()">Game type: Pushing down</button>
+    <button id="startButton" class="btn btn-primary" onclick="gameStart()">START</button>
+    <button id="pauseButton" class="btn btn-primary" onclick="gamePause()">PAUSE</button>
+    <button id="verticalPlatformButton" class="btn btn-primary" onclick="activateVerticalPlatform()">Vertical platform: OFF</button>
+    <button id="gameTypeButton" class="btn btn-primary" onclick="changeGameType()">Game type: Pushing down</button>
+    <button id="AIButton" class="btn btn-primary" onclick="activateAI()">Auto Play: OFF</button>
     <br>
     <br>
     <canvas id="hideThis"></canvas>
 
 </div>
 
-<div class="column right">
+<div class="column right" id="prawa">
     <div id="login">
-        <h2>Log in</h2>
+        <h3>Log in</h3>
         <label>
-            <input id="loginValue" type="text" placeholder="Login">
+            <input class="form-control" id="loginValue" type="text" placeholder="Login">
         </label>
         <br>
         <label>
-            <input id="passwordValue" type="password" placeholder="Password">
+            <input class="form-control" id="passwordValue" type="password" placeholder="Password">
         </label>
         <br>
-        <button id="loginButton" onclick="loginUser()">LOGIN</button>
+        <button class="btn btn-primary" id="loginButton" onclick="loginUser()">LOGIN</button>
         <br>
         <p id="loginResponse"></p>
     </div>
 
     <div id="register">
-        <h2>Register</h2>
+        <h3>Register</h3>
         <label>
-            <input id="registerValue" type="text" placeholder="new username"/>
+            <input class="form-control" id="registerValue" type="text" placeholder="new username"/>
         </label>
         <br>
         <label>
-            <input id="registerPasswordValue" type="password" placeholder="new password"/>
+            <input class="form-control" id="registerPasswordValue" type="password" placeholder="new password"/>
         </label>
         <br>
-        <button id="registerButton" onclick="registerUser()">REGISTER</button>
+        <button class="btn btn-primary" id="registerButton" onclick="registerUser()">REGISTER</button>
         <br>
         <p id="registerResponse"></p>
 
     </div>
-    <h1>LOCAL SCORES</h1>
-    <p id="local0"></p>
-    <p id="local1"></p>
-    <p id="local2"></p>
-    <p id="local3"></p>
-    <p id="local4"></p>
-    <p id="local5"></p>
-    <p id="local6"></p>
-    <p id="local7"></p>
-    <p id="local8"></p>
-    <p id="local9"></p>
+    <h2>LOCAL SCORES</h2>
+    <div id="localScores">
 
-    <br>
-    <button id="uploadToGlobal" onclick="uploadHighest()">UPLOAD HIGHEST SCORE TO GLOBAL LEADERBOARD</button>
+    </div>
+    <button class="btn btn-primary" id="uploadToGlobal" onclick="uploadHighest()">UPLOAD HIGHEST SCORE</button>
 </div>
 
 </div>
 </body>
-<script type="text/javascript" src="index.js"></script>
-<script type="text/javascript" src="Platform.js"></script>
-<script type="text/javascript" src="GameBall.js"></script>
-<script type="text/javascript" src="Brick.js"></script>
-<script type="text/javascript" src="Boost.js"></script>
-<script type="text/javascript" src="localDB.js"></script>
-<script type="text/javascript" src="scoreEntry.js"></script>
-
-
-
 </html>

@@ -29,15 +29,37 @@ function getScores() {
             }
             return 0;
         });
+        $('#leaderboardTable').html("");
+        let data = "<table class=\"table table-bordered\">" +
+            "  <thead>\n" +
+            "    <tr>\n" +
+            "      <th scope=\"col\">#</th>\n" +
+            "      <th scope=\"col\">Nick</th>\n" +
+            "      <th scope=\"col\">Score</th>\n" +
+            "      <th scope=\"col\">Date</th>\n" +
+            "    </tr>\n" +
+            "  </thead>\n" +
+            "  <tbody>\n";
 
-        for(let i=0; i<sortedScores.length; i++) {
-            if(i<=9) {
-                let name = String("top" + i.toString());
-                document.getElementById(name).innerText = (i+1) + " | " + sortedScores[i].nick + " | " + sortedScores[i].score + " | " + sortedScores[i].date + " | ";
+        for(let i=0; i<sortedScores.length;i++) {
+            if(i<10) {
+                let j = i+1;
+                data +="<tr>\n" +
+                    "      <th scope=\"row\">"+j+"</th>\n" +
+                    "      <td>"+sortedScores[i].nick+"</td>\n" +
+                    "      <td>"+sortedScores[i].score+"</td>\n" +
+                    "      <td>"+sortedScores[i].date+"</td>\n" +
+                    "    </tr>\n";
             }
-
         }
+
+        data += " </tbody>\n" +
+            "</table>";
+
+        $('#leaderboardTable').append(data);
+
     };
+
 }
 
 function registerUser() {
@@ -61,9 +83,6 @@ request = window.indexedDB.open("wyniki");
 request.onerror = function(event) {
 
 };
-request.onsuccess = function(event) {
-
-};
 
 request.onupgradeneeded = function () {
     var db = request.result;
@@ -72,7 +91,8 @@ request.onupgradeneeded = function () {
 }
 
 request.onsuccess = function () {
-    console.log("DB Created/Updated");
+    getLocalRecords();
+    getScores();
 }
 
 function saveToLocalDB() {
@@ -115,12 +135,35 @@ function getLocalRecords () {
             return 0;
         });
 
-        for (let i = 0; i < sortedLocalRecords.length; i++) {
-            if (i <= 9) {
-                let name = String("local" + i.toString());
-                document.getElementById(name).innerText = (i + 1) + " | " + sortedLocalRecords[i].nick + " | " + sortedLocalRecords[i].score + " | " + sortedLocalRecords[i].date + " | ";
+        $('#localScores').html("");
+        let data = "<table class=\"table table-bordered\">" +
+            "  <thead>\n" +
+            "    <tr>\n" +
+            "      <th scope=\"col\">#</th>\n" +
+            "      <th scope=\"col\">Nick</th>\n" +
+            "      <th scope=\"col\">Score</th>\n" +
+            "      <th scope=\"col\">Date</th>\n" +
+            "    </tr>\n" +
+            "  </thead>\n" +
+            "  <tbody>\n";
+
+        for(let i=0; i<sortedLocalRecords.length;i++) {
+            if(i<10) {
+                let j = i+1;
+                data +="<tr>\n" +
+                    "      <th scope=\"row\">"+j+"</th>\n" +
+                    "      <td>"+sortedLocalRecords[i].nick+"</td>\n" +
+                    "      <td>"+sortedLocalRecords[i].score+"</td>\n" +
+                    "      <td>"+sortedLocalRecords[i].date+"</td>\n" +
+                    "    </tr>\n";
             }
         }
+
+        data += " </tbody>\n" +
+            "</table>";
+
+
+        $('#localScores').append(data);
     };
 
 }
@@ -131,8 +174,9 @@ function loginUser() {
     worker.onmessage = function (event) {
         if (event.data.hasOwnProperty("LOGIN_OK")) {
             currentID = event.data["LOGIN_OK"];
-            document.getElementById("loginResponse").innerText = "Logged in!"
             currentUser = document.getElementById('loginValue').value;
+            document.getElementById("loginResponse").innerText = "Logged in as " + currentUser;
+
             loggedIn = true;
         } else {
             document.getElementById("loginResponse").innerText = "Incorrect login/password!";
@@ -163,3 +207,5 @@ function uploadHighest() {
 
 
 }
+
+
